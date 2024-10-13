@@ -2,15 +2,28 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using UrbanPoshAPIApp.Services;
-using AuthenticationService = UrbanPoshAPIApp.Services.AuthenticationService;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Urban.BAL;
+using Urban.DAL.Contexts;
+using Urban.DAL.Models;
+using Urban.DAL.UPCService;
+using UrbanPoshAPIApp.Repository.UPCServices;
+using UrbanPoshAPIApp.UrbanServices;
+using AuthenticationService = UrbanPoshAPIApp.UrbanServices.AuthenticationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<UPCDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("UPCConnection"), b => b.MigrationsAssembly("UrbanPoshAPIApp")));
+
+// Add services to the container.
 
 builder.Services.AddControllers();
-
+builder.Services.AddScoped<IUPCDbServices,UPCDBServices>();
+builder.Services.AddScoped<IUPCServiceRepo,UPCServicesRepo>();
+builder.Services.AddScoped<UPCServicesHelper>();
 // Register the custom services
 var issuer = builder.Configuration["Keycloak:Authority"];
 var audience = builder.Configuration["Keycloak:ClientId"];   // "<your-client-id>";
@@ -41,7 +54,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware<ExceptionHandlingUPCMiddleware>();
 app.MapControllers();
 
 app.Run();

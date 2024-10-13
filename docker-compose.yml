@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  webapi:
+    image: urbanposhapi
+    build:
+      context: .
+      dockerfile: UrbanPoshAPIApp/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=18.207.245.128:5432;Database=UPC_DB;Username=postgres;Password=postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: UPC_DB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

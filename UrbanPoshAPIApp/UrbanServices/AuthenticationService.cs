@@ -3,7 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace UrbanPoshAPIApp.Services
+namespace UrbanPoshAPIApp.UrbanServices
 {
     public class AuthenticationService
     {

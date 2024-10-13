@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace UrbanPoshAPIApp.Services
+namespace UrbanPoshAPIApp.UrbanServices
 {
     public class AuthorizationService
     {

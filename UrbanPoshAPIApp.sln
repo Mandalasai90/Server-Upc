@@ -5,9 +5,14 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrbanPoshAPIApp", "UrbanPoshAPIApp\UrbanPoshAPIApp.csproj", "{0D26B0CA-DD46-466D-A21A-87E16EE47338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urban.BAL", "Urban.BAL\Urban.BAL.csproj", "{C7D41251-12F4-43C5-9B4C-E22531FD9787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Urban.BAL", "Urban.BAL\Urban.BAL.csproj", "{C7D41251-12F4-43C5-9B4C-E22531FD9787}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urban.DAL", "Urban.DAL\Urban.DAL.csproj", "{F2B824E1-20CD-46FE-9F1F-2C737FE17239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Urban.DAL", "Urban.DAL\Urban.DAL.csproj", "{F2B824E1-20CD-46FE-9F1F-2C737FE17239}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F47B9DB-2142-47EE-B14C-DD5DC22488C4}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

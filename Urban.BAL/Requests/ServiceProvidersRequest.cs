@@ -6,20 +6,29 @@ using System.Threading.Tasks;
 
 namespace Urban.BAL.Requests
 {
-    public class CreateServiceProvidersRequest
+    public class ServiceProvidersRequest
     {
-        public string userId {  get; set; }
-        public string Service_CategoryId { get; set; }
+        public int userId {  get; set; }
+        public int Service_CategoryId { get; set; }
         public int rating { get; set; } 
         public int experienceinyears {  get; set; }
         public string bio { get; set; }
         public string availability { get; set; }
     }
 
+    public class UpdateServiceProvidersRequest: ServiceProvidersRequest
+    {
+        public int providerId { get; set;}
+    }
+
     public class ServiceCategoriesRequest
     {
-        public string category_Name { get; set; }
+        public string categoryName { get; set; }
         public string description { get; set; }
+    }
+    public class UpdateServiceCategoriesRequest:ServiceCategoriesRequest
+    {
+        public int CategoryId { get; set; }
     }
 
     public class ServicesRequest
@@ -29,6 +38,11 @@ namespace Urban.BAL.Requests
         public string service_Description { get; set; }
         public decimal price { get; set; }
         public int duration { get; set; }
+    }
+
+    public class UpdateServicesRequest: ServicesRequest
+    {
+        public int serviceId { get; set; }
     }
     public class ServiceRatingsRequest
     {
