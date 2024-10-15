@@ -1,21 +1,24 @@
-version: '3.4'
+version: '3.8'  # Updated to a more recent version for better features
 
 services:
   webapi:
-    image: urbanposhapi
+    image: sainathmandala90/sample-project:3
     build:
       context: .
       dockerfile: UrbanPoshAPIApp/Dockerfile
     ports:
-      - "8080:80"
+      - "8080:80"  # Maps host port 8080 to container port 80
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=18.207.245.128:5432;Database=UPC_DB;Username=postgres;Password=postgres
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=UPC_DB;Username=postgres;Password=postgres
+    networks:
+      - app-network
 
   postgres:
-    image: postgres:latest
+    image: postgres:14.2  # Specify a stable PostgreSQL version
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -24,6 +27,17 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data:
